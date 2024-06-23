@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.
+0">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <title>Border-radius generator</title>
+</head>
+<body class="bg-gray-300 flex items-center justify-center p-8">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-80">
+        <h1 class="text-2xl font-bold mb-4">Border Radius Generator</h1>
+        <div class="mb-2">
+            <label for="top-left" class="block text-sm font-medium text-gray-700">Top Left:</label>
+            <input type="range" id="top-left" min="0" max="100" value="0" class="w-full">
+            <span id="value-top-left" class="block text-right">0%</span>
+        </div>
+        <div class="mb-2">
+            <label for="top-right" class="block text-sm font-medium text-gray-700">Top Right:</label>
+            <input type="range" id="top-right" min="0" max="100" value="0" class="w-full">
+            <span id="value-top-right" class="block text-right">0%</span>
+        </div>
+        <div class="mb-2">
+            <label for="bottom-left" class="block text-sm font-medium text-gray-700">Bottom Left:</label>
+            <input type="range" id="bottom-left" min="0" max="100" value="0" class="w-full">
+            <span id="value-bottom-left" class="block text-right">0%</span>
+        </div>
+        <div class="mb-2">
+            <label for="bottom-right" class="block text-sm font-medium text-gray-700">Bottom Right:</label>
+            <input type="range" id="bottom-right" min="0" max="100" value="0" class="w-full">
+            <span id="value-bottom-right" class="block text-right">0%</span>
+        </div>
+        <div class="flex justify-center mb-4">
+            <div id="box" class="w-24 h-24 bg-blue-500"></div>
+        </div>
+        <div>
+            <p class="text-sm font-medium text-gray-700">CSS Code:</p>
+            <textarea id="css-code" readonly class="w-full h-16 p-2 border rounded"></textarea>
+        </div>
+    </div>
+    <script>
+    // Menambahkan event listener ketika seluruh konten halaman selesai dimuat
+    document.addEventListener('DOMContentLoaded', function () {
+    // Mendapatkan semua elemen input yang bertipe range
+    const inputs = document.querySelectorAll('input[type="range"]');
+    // Mendapatkan elemen dengan id 'box'
+    const box = document.getElementById('box');
+    // Mendapatkan elemen dengan id 'css-code'
+    const cssCode = document.getElementById('css-code');
+    
+    // Fungsi untuk memperbarui nilai border-radius
+    function updateBorderRadius() {
+        const topLeft = document.getElementById('top-left').value;
+        const topRight = document.getElementById('top-right').value;
+        const bottomLeft = document.getElementById('bottom-left').value;
+        const bottomRight = document.getElementById('bottom-right').value;
+        
+        // Menggabungkan nilai-nilai menjadi satu string border-radius
+        const borderRadius = `${topLeft}% ${topRight}% ${bottomRight}% ${bottomLeft}%`;
+        
+        // Mengatur nilai border-radius pada elemen box
+        box.style.borderRadius = borderRadius;
+        // Mengatur nilai pada elemen cssCode dengan string border-radius
+        cssCode.value = `border-radius: ${borderRadius};`;
+        
+        // Menampilkan nilai persen pada elemen yang sesuai
+        document.getElementById('value-top-left').innerText = `${topLeft}%`;
+        document.getElementById('value-top-right').innerText = `${topRight}%`;
+        document.getElementById('value-bottom-left').innerText = `${bottomLeft}%`;
+        document.getElementById('value-bottom-right').innerText = `${bottomRight}%`;
+    }
+    
+    // Menambahkan event listener untuk setiap input range
+    inputs.forEach(input => {
+        input.addEventListener('input', updateBorderRadius);
+    });
+    
+    updateBorderRadius();
+});
+
+    </script>
+
+
+</html>
